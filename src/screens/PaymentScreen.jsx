@@ -10,8 +10,8 @@ const methods = [
 
 export default function PaymentScreen({ onSelect, onBack, onCancel }) {
   return (
-    <KioskFrame theme="light">
-      <h1 className="title title--on-light">Select Mode of Payment</h1>
+    <KioskFrame theme="teal">
+      <h1 className="title title--on-teal">Select Mode of Payment</h1>
 
       <div className="pay-grid">
         {methods.map(({ id, name, desc, Icon }) => (
@@ -26,7 +26,7 @@ export default function PaymentScreen({ onSelect, onBack, onCancel }) {
       </div>
 
       <div className="action-bar">
-        <button className="btn btn--outline btn--pill" onClick={onBack}>
+        <button className="btn btn--white btn--pill" onClick={onBack}>
           <ArrowLeftIcon /> Back
         </button>
         <button className="btn btn--danger btn--pill" onClick={onCancel}>
