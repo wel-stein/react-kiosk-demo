@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import KioskFrame from '../components/KioskFrame.jsx'
+import ConfettiBurst from '../components/ConfettiBurst.jsx'
 import { CheckIcon, TrainIcon, PinIcon, InfoIcon, PrinterIcon, HomeIcon } from '../components/Icons.jsx'
 import { formatRM } from '../data/destinations.js'
 
@@ -52,6 +53,7 @@ export default function SuccessScreen({ destination, quantity, paymentMethod, on
 
   return (
     <KioskFrame theme="light">
+      <ConfettiBurst />
       <div className="success-hero">
         <span className="success-hero__icon">
           <CheckIcon />

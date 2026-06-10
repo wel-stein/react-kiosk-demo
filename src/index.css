@@ -645,6 +645,7 @@ a:focus-visible {
 }
 
 .success-hero__icon {
+  position: relative;
   width: 88px;
   height: 88px;
   border-radius: 9999px;
@@ -653,6 +654,80 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 60;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .success-hero__icon {
+    animation: success-pop 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.4) both;
+  }
+
+  .success-hero__icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 4px solid var(--primary);
+    animation: success-ring 0.9s ease-out 0.25s both;
+  }
+
+  .success-hero__icon svg path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: success-draw 0.4s ease-out 0.35s forwards;
+  }
+
+  .success-hero h1,
+  .success-hero p {
+    animation: success-rise 0.5s ease-out 0.3s both;
+  }
+}
+
+@keyframes success-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes success-ring {
+  from {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@keyframes success-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes success-rise {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .success-hero h1 {
@@ -964,7 +1039,8 @@ a:focus-visible {
   .footer,
   .success-hero__icon,
   .qr-panel .btn,
-  .overlay {
+  .overlay,
+  .confetti-canvas {
     display: none !important;
   }
 
