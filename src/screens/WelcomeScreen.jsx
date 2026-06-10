@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import KioskFrame from '../components/KioskFrame.jsx'
 import { CardIcon, CardPlusIcon, SearchIcon, BusIcon } from '../components/Icons.jsx'
 
@@ -9,6 +10,8 @@ const services = [
 ]
 
 export default function WelcomeScreen({ onPurchaseTicket }) {
+  const [unavailable, setUnavailable] = useState(null)
+
   return (
     <KioskFrame theme="teal">
       <h1 className="title title--on-teal">Please Choose Your Service</h1>
@@ -17,7 +20,11 @@ export default function WelcomeScreen({ onPurchaseTicket }) {
           <button
             key={id}
             className="service-card"
-            onClick={id === 'buy-ticket' ? onPurchaseTicket : undefined}
+            onClick={
+              id === 'buy-ticket'
+                ? onPurchaseTicket
+                : () => setUnavailable(label.replace('\n', ' '))
+            }
           >
             <span className="service-card__icon">
               <Icon size={56} />
@@ -30,6 +37,28 @@ export default function WelcomeScreen({ onPurchaseTicket }) {
           </button>
         ))}
       </div>
+
+      {unavailable && (
+        <div
+          className="overlay"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="unavailable-title"
+        >
+          <div className="dialog">
+            <h2 id="unavailable-title">Service Unavailable</h2>
+            <p>
+              {unavailable} is not available at this kiosk yet. Please visit the
+              ticketing counter for assistance.
+            </p>
+            <div className="dialog__actions">
+              <button className="btn btn--primary btn--pill" onClick={() => setUnavailable(null)}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </KioskFrame>
   )
 }

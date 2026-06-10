@@ -4,6 +4,10 @@ import DestinationScreen from './screens/DestinationScreen.jsx'
 import QuantityScreen from './screens/QuantityScreen.jsx'
 import PaymentScreen from './screens/PaymentScreen.jsx'
 import SuccessScreen from './screens/SuccessScreen.jsx'
+import IdleManager from './components/IdleManager.jsx'
+
+const IDLE_MS = 60_000
+const SUCCESS_IDLE_MS = 30_000
 
 export default function App() {
   const [screen, setScreen] = useState('welcome')
@@ -18,9 +22,10 @@ export default function App() {
     setScreen('welcome')
   }
 
+  let content
   switch (screen) {
     case 'destinations':
-      return (
+      content = (
         <DestinationScreen
           onSelect={(dest) => {
             setDestination(dest)
@@ -30,18 +35,21 @@ export default function App() {
           onCancel={reset}
         />
       )
+      break
     case 'quantity':
-      return (
+      content = (
         <QuantityScreen
           destination={destination}
           quantity={quantity}
           setQuantity={setQuantity}
           onConfirm={() => setScreen('payment')}
           onBack={() => setScreen('destinations')}
+          onCancel={reset}
         />
       )
+      break
     case 'payment':
-      return (
+      content = (
         <PaymentScreen
           onSelect={(method) => {
             setPaymentMethod(method)
@@ -51,8 +59,9 @@ export default function App() {
           onCancel={reset}
         />
       )
+      break
     case 'success':
-      return (
+      content = (
         <SuccessScreen
           destination={destination}
           quantity={quantity}
@@ -60,7 +69,19 @@ export default function App() {
           onHome={reset}
         />
       )
+      break
     default:
-      return <WelcomeScreen onPurchaseTicket={() => setScreen('destinations')} />
+      content = <WelcomeScreen onPurchaseTicket={() => setScreen('destinations')} />
   }
+
+  return (
+    <>
+      {content}
+      <IdleManager
+        enabled={screen !== 'welcome'}
+        idleMs={screen === 'success' ? SUCCESS_IDLE_MS : IDLE_MS}
+        onTimeout={reset}
+      />
+    </>
+  )
 }

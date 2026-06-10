@@ -44,6 +44,11 @@ export default function SuccessScreen({ destination, quantity, paymentMethod, on
   }, [destination])
 
   const total = (destination?.price ?? 0) * quantity
+  // Vary the demo QR per ticket so it doesn't look like a static image
+  const qrSeed = useMemo(
+    () => [...ticketId].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) % 9973, 7),
+    [ticketId],
+  )
 
   return (
     <KioskFrame theme="light">
@@ -61,7 +66,7 @@ export default function SuccessScreen({ destination, quantity, paymentMethod, on
 
           <div className="ticket-field">
             <div>
-              <span className="ticket-field__label">Route</span>
+              <span className="ticket-field__label">From</span>
               <span className="ticket-field__value">JB Sentral (CIQ)</span>
             </div>
             <span className="ticket-field__icon">
@@ -94,14 +99,17 @@ export default function SuccessScreen({ destination, quantity, paymentMethod, on
 
           <div className="ticket-note">
             <InfoIcon />
-            <span>Scan this QR code at the gantry or print your ticket below.</span>
+            <span>
+              Scan this QR code at the gantry or print your ticket below.
+              {quantity > 1 ? ` One code covers all ${quantity} tickets.` : ''}
+            </span>
           </div>
         </div>
 
         <div className="qr-panel">
           <div className="qr-panel__frame">
             <div className="qr-panel__code">
-              <FakeQr />
+              <FakeQr seed={qrSeed} />
             </div>
             <span className="qr-panel__id">TICKET ID: {ticketId}</span>
           </div>

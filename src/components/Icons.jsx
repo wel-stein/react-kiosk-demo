@@ -4,6 +4,7 @@ const base = {
   strokeWidth: 2,
   strokeLinecap: 'round',
   strokeLinejoin: 'round',
+  'aria-hidden': true,
 }
 
 export const GlobeIcon = ({ size = 20 }) => (
@@ -148,6 +149,21 @@ export const PinIcon = ({ size = 24 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
     <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z" />
     <circle cx="12" cy="10" r="2.5" />
+  </svg>
+)
+
+export const PhoneIcon = ({ size = 44 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <rect x="6" y="2" width="12" height="20" rx="2" />
+    <path d="M11 18h2" />
+  </svg>
+)
+
+export const BackspaceIcon = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" {...base}>
+    <path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z" />
+    <path d="m12 9 6 6" />
+    <path d="m18 9-6 6" />
   </svg>
 )
 

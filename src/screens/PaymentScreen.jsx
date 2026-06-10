@@ -1,11 +1,11 @@
 import KioskFrame from '../components/KioskFrame.jsx'
-import { CashIcon, CardIcon, BankIcon, QrIcon } from '../components/Icons.jsx'
+import { CashIcon, CardIcon, QrIcon, PhoneIcon, ArrowLeftIcon, CloseIcon } from '../components/Icons.jsx'
 
 const methods = [
   { id: 'cash', name: 'Cash', desc: 'Insert notes or coins', Icon: CashIcon },
-  { id: 'credit-card', name: 'Credit Card', desc: 'Visa, Mastercard, AMEX', Icon: CardIcon },
-  { id: 'nets', name: 'Nets', desc: 'Nets FlashPay or Debit', Icon: BankIcon },
-  { id: 'e-wallet', name: 'E-Wallet', desc: 'Scan to pay (TNG, GrabPay)', Icon: QrIcon },
+  { id: 'card', name: 'Credit / Debit Card', desc: 'Visa, Mastercard, MyDebit', Icon: CardIcon },
+  { id: 'duitnow', name: 'DuitNow QR', desc: 'Scan with your banking app', Icon: QrIcon },
+  { id: 'e-wallet', name: 'E-Wallet', desc: "Touch 'n Go eWallet, GrabPay", Icon: PhoneIcon },
 ]
 
 export default function PaymentScreen({ onSelect, onBack, onCancel }) {
@@ -25,12 +25,12 @@ export default function PaymentScreen({ onSelect, onBack, onCancel }) {
         ))}
       </div>
 
-      <div className="pay-actions">
-        <button className="btn btn--outline" onClick={onBack}>
-          Back
+      <div className="action-bar">
+        <button className="btn btn--outline btn--pill" onClick={onBack}>
+          <ArrowLeftIcon /> Back
         </button>
-        <button className="btn btn--danger" onClick={onCancel}>
-          Cancel
+        <button className="btn btn--danger btn--pill" onClick={onCancel}>
+          <CloseIcon /> Cancel
         </button>
       </div>
     </KioskFrame>

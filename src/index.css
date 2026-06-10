@@ -40,6 +40,12 @@ button {
   background: none;
 }
 
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+
 /* ---------- Kiosk frame ---------- */
 
 .kiosk {
@@ -187,7 +193,7 @@ button {
 }
 
 .service-card:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
   background: var(--secondary-container);
 }
 
@@ -233,6 +239,10 @@ button {
   color: var(--outline);
 }
 
+.search-bar:focus-within {
+  box-shadow: var(--shadow-card), 0 0 0 3px var(--secondary-container);
+}
+
 .dest-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -258,7 +268,7 @@ button {
 }
 
 .dest-card:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
   background: var(--secondary-container);
 }
 
@@ -281,8 +291,8 @@ button {
 }
 
 .dest-card__zone {
-  font-size: 14px;
-  color: var(--outline);
+  font-size: 16px;
+  color: var(--on-surface-variant);
 }
 
 .dest-card__price {
@@ -316,7 +326,7 @@ button {
 }
 
 .pagination__btn:disabled {
-  opacity: 0.45;
+  opacity: 0.6;
   cursor: default;
 }
 
@@ -360,7 +370,7 @@ button {
 }
 
 .btn:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 .btn--primary {
@@ -590,7 +600,7 @@ button {
 }
 
 .pay-card:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
   background: var(--secondary-container);
 }
 
@@ -619,14 +629,8 @@ button {
   line-height: 1.5;
 }
 
-.pay-actions {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.pay-actions .btn {
-  min-width: 320px;
+.pay-grid + .action-bar {
+  max-width: 1216px;
 }
 
 /* ---------- Success screen ---------- */
@@ -698,7 +702,7 @@ button {
 
 .ticket-field__label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -736,7 +740,7 @@ button {
   color: var(--primary-dark);
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
   margin-top: auto;
 }
@@ -768,10 +772,222 @@ button {
 }
 
 .qr-panel__id {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--on-surface-variant);
+}
+
+/* ---------- Summary card CTA ---------- */
+
+.summary-card .btn {
+  margin-top: 1.75rem;
+}
+
+/* ---------- Dialogs (idle reset, service unavailable) ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 50;
+}
+
+.dialog {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.dialog h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 0.75rem;
+}
+
+.dialog p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+}
+
+.dialog__countdown {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 1rem 0 0.5rem;
+}
+
+.dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* ---------- Language menu ---------- */
+
+.header__lang-wrap {
+  position: relative;
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  background: var(--white);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  padding: 0.5rem;
+  z-index: 40;
+}
+
+.lang-menu button {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--on-surface);
+  padding: 0.9rem 1.25rem;
+  border-radius: 0.5rem;
+  min-height: 3rem;
+}
+
+.lang-menu button:hover {
+  background: var(--surface-dim);
+}
+
+.lang-menu button[aria-checked='true'] {
+  background: var(--secondary-container);
+  color: var(--primary-dark);
+}
+
+/* ---------- On-screen keyboard ---------- */
+
+.osk {
+  width: 100%;
+  max-width: 720px;
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+  margin: -1.5rem 0 2.5rem;
+}
+
+.osk__row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.osk__row:last-child {
+  margin-bottom: 0;
+}
+
+.osk__key {
+  min-width: 54px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.osk__key:active {
+  background: var(--secondary-container);
+  transform: scale(0.94);
+}
+
+.osk__key--wide {
+  flex: 1;
+  min-width: 110px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.osk__key--accent {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
+/* ---------- Empty search state ---------- */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 1rem;
+  color: var(--white);
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+}
+
+.empty-state p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ---------- Print (ticket only) ---------- */
+
+@media print {
+  .kiosk,
+  .kiosk--teal,
+  .kiosk--light {
+    background: #fff;
+  }
+
+  .header,
+  .footer,
+  .success-hero__icon,
+  .qr-panel .btn,
+  .overlay {
+    display: none !important;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .success-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .ticket-card,
+  .qr-panel__frame {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+
+  .ticket-note {
+    background: none;
+    border: 1px dashed #000;
+    color: #000;
+  }
 }
 
 /* ---------- Responsive ---------- */
@@ -803,12 +1019,8 @@ button {
     min-height: 200px;
   }
 
-  .pay-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .pay-actions .btn {
+  .osk__key {
     min-width: 0;
+    flex: 1;
   }
 }

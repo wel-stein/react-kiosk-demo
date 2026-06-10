@@ -1,10 +1,17 @@
 import KioskFrame from '../components/KioskFrame.jsx'
-import { PersonIcon, ArrowLeftIcon, ArrowRightIcon } from '../components/Icons.jsx'
+import { PersonIcon, ArrowLeftIcon, ArrowRightIcon, CloseIcon } from '../components/Icons.jsx'
 import { formatRM } from '../data/destinations.js'
 
 const MAX_TICKETS = 10
 
-export default function QuantityScreen({ destination, quantity, setQuantity, onConfirm, onBack }) {
+export default function QuantityScreen({
+  destination,
+  quantity,
+  setQuantity,
+  onConfirm,
+  onBack,
+  onCancel,
+}) {
   const unitPrice = destination?.price ?? 0
   const total = unitPrice * quantity
 
@@ -36,7 +43,7 @@ export default function QuantityScreen({ destination, quantity, setQuantity, onC
             >
               −
             </button>
-            <span className="stepper__value">{quantity}</span>
+            <span className="stepper__value" aria-live="polite">{quantity}</span>
             <button
               className="stepper__btn stepper__btn--plus"
               disabled={quantity >= MAX_TICKETS}
@@ -67,15 +74,20 @@ export default function QuantityScreen({ destination, quantity, setQuantity, onC
               <span>Total</span>
               <strong>{formatRM(total)}</strong>
             </div>
+            <button className="btn btn--primary btn--block" onClick={onConfirm}>
+              Confirm Purchase <ArrowRightIcon />
+            </button>
           </div>
-
-          <button className="btn btn--primary btn--block" onClick={onConfirm}>
-            Confirm Purchase <ArrowRightIcon />
-          </button>
-          <button className="btn btn--white btn--block" onClick={onBack}>
-            <ArrowLeftIcon /> Go Back
-          </button>
         </div>
+      </div>
+
+      <div className="action-bar">
+        <button className="btn btn--white btn--pill" onClick={onBack}>
+          <ArrowLeftIcon /> Back
+        </button>
+        <button className="btn btn--danger btn--pill" onClick={onCancel}>
+          <CloseIcon /> Cancel
+        </button>
       </div>
     </KioskFrame>
   )
